@@ -1,0 +1,117 @@
+main {
+  transition: all 0.3s ease-in-out;
+}
+
+nav {
+  background-color: $dark;
+  border-bottom: 2px solid $dark-gray;
+
+  .navigation {
+    display: flex;
+    .logo-container {
+      width: 250px;
+      img {
+        width: 100%;
+      }
+    }
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .links {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        color: $light;
+        text-decoration: none;
+        transition: $transition;
+        &:hover {
+          color: $light-blue;
+          outline-offset: none;
+        }
+        &:focus {
+          outline: none;
+          outline-offset: none;
+        }
+      }
+      button,
+      a {
+        margin: 0 15px;
+      }
+    }
+  }
+}
+
+.theme-btn {
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+
+.lang-btn {
+  width: 22px;
+  height: 22px;
+}
+
+footer {
+  background-color: $dark;
+  color: $light;
+  border-top: 2px solid $dark-gray;
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    a,
+    .links {
+      color: $light;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      padding: 10px 0;
+      transition: $transition;
+      outline-offset: none;
+      &:hover {
+        color: $light-blue;
+        cursor: pointer;
+        outline-offset: none;
+      }
+      &:focus {
+        outline: none;
+        outline-offset: none;
+      }
+    }
+    .footer-icons {
+      font-size: 2rem;
+      margin: 10px;
+      padding: 10px;
+      transition: $transition;
+      .icon {
+        transition: $transition;
+      }
+      &:hover .icon {
+        color: $light-blue;
+        transform: scale(1.1);
+      }
+    }
+    .footer-logo {
+      width: 300px;
+      img {
+        width: 100%;
+      }
+    }
+    h5 {
+      margin-bottom: 20px;
+    }
+    span {
+      color: gray;
+    }
+  }
+}
