@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  CardLink,
+  CardText,
+} from "reactstrap";
 import SubHeader from "../../utils/SubHeader";
 
 interface RepoProps {
   id: number;
   name: string;
+  svn_url: string;
+  language: string;
+  created_at: Date;
+  updated_at: Date;
+  clone_url: string;
+  hasDownloads: boolean;
+  visibility?: string;
+  description?: string;
 }
 
 const ReposList = () => {
@@ -49,14 +66,41 @@ const ReposList = () => {
     >
       <Row xs={12} className="pb-5">
         <Col tag="main" xs={12}>
-          <SubHeader enTitle="Repositories" spTitle="Repositorios" />
-          {result?.map((repo) => {
-            return (
-              <Col xs={6} key={repo.id}>
-                {repo.name}
-              </Col>
-            );
-          })}
+          <SubHeader
+            enTitle="GitHub Repositories"
+            spTitle="Repositorios en GitHub"
+          />
+
+          <h3>
+            Public Repos Total: <span>{result.length - 1}</span>
+          </h3>
+          <Col xs={12} className="d-flex flex-wrap justify-content-evenly">
+            {result?.map((repo) => {
+              let createdAt = new Date(repo.created_at);
+              let updatedAt = new Date(repo.updated_at);
+              return (
+                <Card className="col-4 m-3" key={repo.id}>
+                  <CardHeader className="text-uppercase">
+                    {repo.name.split("-").join(" ")}
+                  </CardHeader>
+                  <CardBody>
+                    {/* <CardText>{repo.description}</CardText> */}
+                    <CardText>Main Language: {repo.language}</CardText>
+
+                    <CardText>
+                      Created at: {createdAt.toLocaleDateString()}{" "}
+                    </CardText>
+                    <CardText>
+                      Updated at: {updatedAt.toLocaleDateString()}{" "}
+                    </CardText>
+                    <CardLink href={repo.svn_url} target="_blank">
+                      Visit repo
+                    </CardLink>
+                  </CardBody>
+                </Card>
+              );
+            })}
+          </Col>
         </Col>
       </Row>
     </Container>
