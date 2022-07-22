@@ -8,6 +8,7 @@ import {
   CardBody,
   CardLink,
   CardText,
+  CardImg,
 } from "reactstrap";
 import SubHeader from "../../utils/SubHeader";
 
@@ -22,6 +23,7 @@ interface RepoProps {
   hasDownloads: boolean;
   visibility?: string;
   description?: string;
+  owner: { avatar_url: string };
 }
 
 const ReposList = () => {
@@ -53,8 +55,6 @@ const ReposList = () => {
       });
   }, []);
 
-  console.log(result);
-
   if (loading) return <h1>Loading...</h1>;
   if (error) return error;
 
@@ -80,12 +80,28 @@ const ReposList = () => {
               let updatedAt = new Date(repo.updated_at);
               return (
                 <Card className="col-4 m-3" key={repo.id}>
-                  <CardHeader className="text-uppercase">
+                  <CardHeader className="text-uppercase card-header">
+                    <img src={repo.owner.avatar_url} alt="avatar" />
                     {repo.name.split("-").join(" ")}
                   </CardHeader>
                   <CardBody>
                     {/* <CardText>{repo.description}</CardText> */}
-                    <CardText>Main Language: {repo.language}</CardText>
+                    <CardText>
+                      Main Language:{" "}
+                      <span
+                        className={`${
+                          repo.language === "JavaScript"
+                            ? "text-warning"
+                            : repo.language === "TypeScript"
+                            ? "text-info"
+                            : repo.language === "HTML"
+                            ? "text-primary"
+                            : repo.language === "SCSS" && "text-danger"
+                        }`}
+                      >
+                        {repo.language}
+                      </span>
+                    </CardText>
 
                     <CardText>
                       Created at: {createdAt.toLocaleDateString()}{" "}
@@ -93,6 +109,7 @@ const ReposList = () => {
                     <CardText>
                       Updated at: {updatedAt.toLocaleDateString()}{" "}
                     </CardText>
+                    <CardText>Clone Link: {repo.clone_url}</CardText>
                     <CardLink href={repo.svn_url} target="_blank">
                       Visit repo
                     </CardLink>
