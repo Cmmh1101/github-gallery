@@ -33,7 +33,7 @@ const RepoCard = ({
         {name.split("-").join(" ")}
       </CardHeader>
       <CardBody>
-        <CardText>{description}</CardText>
+        {/* <CardText>{description}</CardText> */}
         <CardText>
           Main Language:{" "}
           <span
@@ -51,7 +51,7 @@ const RepoCard = ({
           </span>
         </CardText>
 
-        <CardText>Created at: {createdAt} </CardText>
+        <CardText>Created at: {createdAt.toLocaleDateString()} </CardText>
         <CardText>Updated at: {updatedAt.toLocaleDateString()} </CardText>
         <CardText>Clone Link: {clone_url}</CardText>
         <CardLink href={url} target="_blank">
