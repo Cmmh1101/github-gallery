@@ -1,30 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  CardLink,
-  CardText,
-  CardImg,
-} from "reactstrap";
+import { RepoProps } from "./interfaces/RepoProps";
+import { Container, Row, Col } from "reactstrap";
 import SubHeader from "../../utils/SubHeader";
-
-interface RepoProps {
-  id: number;
-  name: string;
-  svn_url: string;
-  language: string;
-  created_at: Date;
-  updated_at: Date;
-  clone_url: string;
-  hasDownloads: boolean;
-  visibility?: string;
-  description?: string;
-  owner: { avatar_url: string };
-}
+import RepoCard from "./components/RepoCard";
 
 const ReposList = () => {
   const [result, setResult] = useState<RepoProps[]>([]);
@@ -32,9 +10,6 @@ const ReposList = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    // const result = async () => {
-
-    // }
     setLoading(true);
     fetch("https://api.github.com/users/CMMH1101/repos")
       .then((response) => {
@@ -59,11 +34,7 @@ const ReposList = () => {
   if (error) return error;
 
   return (
-    <Container
-      id="contact"
-      className=""
-      //   style={{ height: "auto", minHeight: "100vh" }}
-    >
+    <Container id="contact" className="">
       <Row xs={12} className="pb-5">
         <Col tag="main" xs={12}>
           <SubHeader
@@ -79,42 +50,16 @@ const ReposList = () => {
               let createdAt = new Date(repo.created_at);
               let updatedAt = new Date(repo.updated_at);
               return (
-                <Card className="col-4 m-3" key={repo.id}>
-                  <CardHeader className="text-uppercase card-header">
-                    <img src={repo.owner.avatar_url} alt="avatar" />
-                    {repo.name.split("-").join(" ")}
-                  </CardHeader>
-                  <CardBody>
-                    {/* <CardText>{repo.description}</CardText> */}
-                    <CardText>
-                      Main Language:{" "}
-                      <span
-                        className={`${
-                          repo.language === "JavaScript"
-                            ? "text-warning"
-                            : repo.language === "TypeScript"
-                            ? "text-info"
-                            : repo.language === "HTML"
-                            ? "text-primary"
-                            : repo.language === "SCSS" && "text-danger"
-                        }`}
-                      >
-                        {repo.language}
-                      </span>
-                    </CardText>
-
-                    <CardText>
-                      Created at: {createdAt.toLocaleDateString()}{" "}
-                    </CardText>
-                    <CardText>
-                      Updated at: {updatedAt.toLocaleDateString()}{" "}
-                    </CardText>
-                    <CardText>Clone Link: {repo.clone_url}</CardText>
-                    <CardLink href={repo.svn_url} target="_blank">
-                      Visit repo
-                    </CardLink>
-                  </CardBody>
-                </Card>
+                <RepoCard
+                  key={repo.id}
+                  clone_url={repo.clone_url}
+                  createdAt={createdAt}
+                  updatedAt={updatedAt}
+                  language={repo.language}
+                  name={repo.name}
+                  url={repo.svn_url}
+                  avatar={repo.owner.avatar_url}
+                />
               );
             })}
           </Col>
