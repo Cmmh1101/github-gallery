@@ -1,7 +1,7 @@
 export interface RepoProps {
   id: number;
   name: string;
-  svn_url: string;
+  html_url: string;
   language: string;
   created_at: Date;
   updated_at: Date;

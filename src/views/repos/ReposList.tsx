@@ -57,7 +57,7 @@ const ReposList = () => {
                   updatedAt={updatedAt}
                   language={repo.language}
                   name={repo.name}
-                  url={repo.svn_url}
+                  url={repo.html_url}
                   avatar={repo.owner.avatar_url}
                 />
               );
